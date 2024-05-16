@@ -2,7 +2,7 @@ from OpenGL.GL import *
 import numpy
 
 
-class Attribute(object):
+class Attribute:
     def __init__(self, data_type, data):
         # data_type can be: int, float, vec2, vec3, vec4
         self.data_type = data_type

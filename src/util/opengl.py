@@ -19,7 +19,7 @@ def compile_shader(shader_code, shader_type):
     return shader
 
 
-def link_program(vert_code, frag_code):
+def compile(vert_code, frag_code):
     vert_shader = compile_shader(vert_code, GL_VERTEX_SHADER)
     frag_shader = compile_shader(frag_code, GL_FRAGMENT_SHADER)
 
@@ -35,7 +35,7 @@ def link_program(vert_code, frag_code):
     if not success:
         error_msg = glGetProgramInfoLog(program)
         glDeleteProgram(program)
-        error_msg = '\n' + error_msg.decode('utf-8')
+        # error_msg = '\n' + error_msg.decode('utf-8')
         raise Exception(error_msg)
 
     return program
