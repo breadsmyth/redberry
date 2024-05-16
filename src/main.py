@@ -6,7 +6,7 @@ from OpenGL.GLU import *
 
 import config
 import input
-import opengl_utils
+import util.opengl
 
 config.init()
 pygame.init()
@@ -21,19 +21,22 @@ screen = pygame.display.set_mode(
     config.SCREEN_SIZE,
     DOUBLEBUF | OPENGL | FULLSCREEN)
 
+
 # Get shaders
 with open('shaders/test_vertex_shader.vert') as file:
     vert_code = file.read()
 with open('shaders/test_fragment_shader.frag') as file:
     frag_code = file.read()
 
-program = opengl_utils.link_program(vert_code, frag_code)
+
+program = util.opengl.link_program(vert_code, frag_code)
 vao = glGenVertexArrays(1)
 glBindVertexArray(vao)
 
 glPointSize(10)  # point 10 pixels in diameter
 # gluPerspective(45, (config.SCREEN_SIZE[0] / config.SCREEN_SIZE[1]), 0.1, 50.0)
 # glTranslatef(0.0, 0.0, -5)
+
 
 # Main loop
 config.RUNNING = True
