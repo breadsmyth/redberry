@@ -22,6 +22,13 @@ def init():
     global SCREEN_SIZE 
     SCREEN_SIZE = (1920, 1080)
 
+    # keep track of total elapsed time
+    global TOTAL_TIME
+    TOTAL_TIME = 0
+
+    global DELTA_TIME
+    DELTA_TIME = 0
+
 
 def load_from_settings():
     with open ('settings.json') as file:

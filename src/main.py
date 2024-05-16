@@ -13,8 +13,6 @@ config.load_from_settings()
 pygame.init()
 clock = pygame.time.Clock()
 
-app_time = 0
-
 pygame.display.gl_set_attribute(pygame.GL_MULTISAMPLEBUFFERS, 1)
 pygame.display.gl_set_attribute(pygame.GL_MULTISAMPLESAMPLES, 4)
 pygame.display.gl_set_attribute(
@@ -34,12 +32,12 @@ while config.RUNNING:
     if input.is_key_down('q'):
         config.RUNNING = False
 
-    render.test(app_time)
+    render.test()
 
     pygame.display.flip()
     clock.tick(config.FPS)
 
-    delta_time = clock.get_time() / 1000
-    app_time += delta_time
+    config.DELTA_TIME = clock.get_time() / 1000
+    config.TOTAL_TIME += config.DELTA_TIME
 
 pygame.quit()

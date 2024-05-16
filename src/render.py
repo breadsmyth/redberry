@@ -1,9 +1,11 @@
 from OpenGL.GL import *
-import math
 
 import opengl.shaders
 from opengl.attribute import Attribute
 from opengl.uniform import Uniform
+
+import config
+import input
 
 
 def init():
@@ -45,13 +47,22 @@ def init():
     base_color = Uniform('vec3', [1, 0, 0])
     base_color.locate_variable(program, 'base_color')
 
+    global speed
+    speed = .5
 
-def test(app_time):
+
+def test():
     # update game state
-    base_color.data[0] = (math.sin(app_time) + 1) / 2
-    base_color.data[1] = (math.sin(app_time + 2.1) + 1) / 2
-    base_color.data[2] = (math.sin(app_time + 4.2) + 1) / 2
-    
+    distance = speed * config.DELTA_TIME
+
+    if input.is_key_pressed('a'):
+        translation.data[0] -= distance
+    if input.is_key_pressed('d'):
+        translation.data[0] += distance
+    if input.is_key_pressed('s'):
+        translation.data[1] -= distance
+    if input.is_key_pressed('w'):
+        translation.data[1] += distance
 
     # render scene
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
