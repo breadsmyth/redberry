@@ -7,6 +7,7 @@ from OpenGL.GLU import *
 import config
 import input
 import util.opengl
+from util.attribute import Attribute
 
 config.init()
 pygame.init()
@@ -30,26 +31,55 @@ with open('shaders/test_fragment_shader.frag') as file:
 
 
 program = util.opengl.link_program(vert_code, frag_code)
-vao = glGenVertexArrays(1)
-glBindVertexArray(vao)
+glLineWidth(4)
 
-glPointSize(10)  # point 10 pixels in diameter
-# gluPerspective(45, (config.SCREEN_SIZE[0] / config.SCREEN_SIZE[1]), 0.1, 50.0)
-# glTranslatef(0.0, 0.0, -5)
+
+# Triangle
+triangle_vao = glGenVertexArrays(1)
+glBindVertexArray(triangle_vao)
+
+triangle_pos_data = (
+    (-.5, .8, 0),
+    (-.2, .2, 0),
+    (-.8, .2, 0))
+
+triangle_vertex_count = len(triangle_pos_data)
+triangle_attr = Attribute('vec3', triangle_pos_data)
+triangle_attr.associate_variable(program, 'position')
+
+
+# Square
+square_vao = glGenVertexArrays(1)
+glBindVertexArray(square_vao)
+
+square_pos_data = (
+    (.8, .8, 0),
+    (.8, .2, 0),
+    (.2, .2, 0),
+    (.2, .8, 0))
+
+square_vertex_count = len(square_pos_data)
+square_attr = Attribute('vec3', square_pos_data)
+square_attr.associate_variable(program, 'position')
 
 
 # Main loop
 config.RUNNING = True
+glClearColor(.4, .7, .9, 1)
 while config.RUNNING:
     input.process(pygame.event.get())
 
     glUseProgram(program)
-    glDrawArrays(GL_POINTS, 0, 1)
 
-    # glRotatef(1, 3, 1, 1)
-    # glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+    glBindVertexArray(triangle_vao)
+    glDrawArrays(GL_LINE_LOOP, 0, triangle_vertex_count)
+
+    glBindVertexArray(square_vao)
+    glDrawArrays(GL_LINE_LOOP, 0, square_vertex_count)
 
     pygame.display.flip()
     clock.tick(config.FPS)
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
 pygame.quit()
