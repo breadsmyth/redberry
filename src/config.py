@@ -1,7 +1,17 @@
 # Globals
 def init():
     global FPS
-    FPS = 60
+    FPS = 120
+
+    # keep track of key inputs
+    global KEYS_DOWN
+    KEYS_DOWN = []
+
+    global KEYS_PRESSED
+    KEYS_PRESSED = []
+
+    global KEYS_UP
+    KEYS_UP = []
 
     global RUNNING
     RUNNING = True

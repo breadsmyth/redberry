@@ -1,8 +1,9 @@
 from OpenGL.GL import *
+import math
 
-import util.opengl
-from util.attribute import Attribute
-from util.uniform import Uniform
+import opengl.shaders
+from opengl.attribute import Attribute
+from opengl.uniform import Uniform
 
 
 def init():
@@ -14,7 +15,7 @@ def init():
 
 
     global program
-    program = util.opengl.compile(vert_code, frag_code)
+    program = opengl.shaders.compile(vert_code, frag_code)
     # glPointSize(10)
     # glLineWidth(4)
     glClearColor(.4, .7, .9, 1)
@@ -41,15 +42,16 @@ def init():
     translation.locate_variable(program, 'translation')
 
     global base_color
-    base_color = Uniform('vec3', (1, 0, 0))
+    base_color = Uniform('vec3', [1, 0, 0])
     base_color.locate_variable(program, 'base_color')
 
 
-def test():
+def test(app_time):
     # update game state
-    translation.data[0] += .01
-    if translation.data[0] > 1.2:
-        translation.data[0] = -1.2
+    base_color.data[0] = (math.sin(app_time) + 1) / 2
+    base_color.data[1] = (math.sin(app_time + 2.1) + 1) / 2
+    base_color.data[2] = (math.sin(app_time + 4.2) + 1) / 2
+    
 
     # render scene
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
