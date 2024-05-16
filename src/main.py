@@ -4,6 +4,11 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
+import config
+import input
+
+config.init()
+
 
 vertices = (
     (1, -1, -1),
@@ -43,6 +48,8 @@ def draw_cube():
 pygame.init()
 screen_size = (1920, 1080)
 
+clock = pygame.time.Clock()
+
 pygame.display.gl_set_attribute(pygame.GL_MULTISAMPLEBUFFERS, 1)
 pygame.display.gl_set_attribute(pygame.GL_MULTISAMPLESAMPLES, 4)
 pygame.display.gl_set_attribute(
@@ -56,19 +63,16 @@ glTranslatef(0.0, 0.0, -5)
 
 
 # Main loop
-game_running = True
-while game_running:
-    for event in pygame.event.get():
-        if (event.type == pygame.QUIT or
-            event.type == pygame.KEYDOWN and event.key == pygame.K_Q):
-            game_running = False
-    
+config.RUNNING = True
+while config.RUNNING:
+    input.process(pygame.event.get())
+
     glRotatef(1, 3, 1, 1)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
     draw_cube()
 
     pygame.display.flip()
-    pygame.time.wait(60)
+    clock.tick(config.FPS)
 
 pygame.quit()
