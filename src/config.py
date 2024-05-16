@@ -1,3 +1,6 @@
+import json
+
+
 # Globals
 def init():
     global FPS
@@ -18,3 +21,19 @@ def init():
 
     global SCREEN_SIZE 
     SCREEN_SIZE = (1920, 1080)
+
+
+def load_from_settings():
+    with open ('settings.json') as file:
+        settings_json = file.read()
+
+    settings_obj = json.loads(settings_json)
+
+    global FPS
+    FPS = settings_obj['fps']
+
+    global SCREEN_SIZE
+    SCREEN_SIZE = (
+        settings_obj['resolution'][0],
+        settings_obj['resolution'][1])
+
