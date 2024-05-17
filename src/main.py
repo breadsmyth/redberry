@@ -4,7 +4,7 @@ from pygame.locals import *
 from OpenGL.GL import *
 
 import config
-import render
+import test
 import input
 
 
@@ -23,16 +23,16 @@ screen = pygame.display.set_mode(
     DOUBLEBUF | OPENGL | FULLSCREEN)
 
 
-render.init()
+test.init()
 
 # Main loop
 config.RUNNING = True
 while config.RUNNING:
     input.process(pygame.event.get())
-    if input.is_key_down('q'):
+    if input.is_key_down('escape'):
         config.RUNNING = False
 
-    render.test()
+    test.run()
 
     pygame.display.flip()
     clock.tick(config.FPS)
