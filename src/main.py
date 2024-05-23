@@ -10,6 +10,7 @@ import input
 
 config.init()
 config.load_from_settings()
+
 pygame.init()
 clock = pygame.time.Clock()
 

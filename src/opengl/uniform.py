@@ -9,8 +9,8 @@ class Uniform:
         self.variable = None
 
 
-    def locate_variable(self, program, variable_name):
-        self.variable = glGetUniformLocation(program, variable_name)
+    def locate_variable(self, program, name):
+        self.variable = glGetUniformLocation(program, name)
 
 
     def upload(self):

@@ -18,8 +18,8 @@ class Attribute:
         glBufferData(GL_ARRAY_BUFFER, data.ravel(), GL_STATIC_DRAW)
     
 
-    def associate_variable(self, program, variable_name):
-        variable = glGetAttribLocation(program, variable_name)
+    def associate_variable(self, program, name):
+        variable = glGetAttribLocation(program, name)
         if variable == -1:
             return
         
@@ -41,7 +41,7 @@ class Attribute:
                 buffer_len = 4
             case _:
                 raise Exception(
-                    f'Attribute {variable_name} has unknown type {self.data_type}')
+                    f'Attribute {name} has unknown type {self.data_type}')
 
         glVertexAttribPointer(
             variable, buffer_len, buffer_type, False, 0, None)
