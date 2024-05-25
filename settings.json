@@ -1,5 +1,6 @@
 {
-    "fov": 60,
+    "fov": 70,
     "fps": 120,
+    "mouse_sensitivity": 1.0,
     "resolution": [1920, 1080]
 }

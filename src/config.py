@@ -35,6 +35,12 @@ def load_from_settings():
     global FPS
     FPS = settings_obj['fps']
 
+    global MOUSE_SENSITIVITY
+    MOUSE_SENSITIVITY = settings_obj['mouse_sensitivity']
+
+    if MOUSE_SENSITIVITY <= 0:
+        raise Exception("settings.json: field 'mouse_sensitivity' must be greater than 0")
+
     global SCREEN_SIZE
     SCREEN_SIZE = (
         settings_obj['resolution'][0],

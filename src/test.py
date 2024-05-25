@@ -5,6 +5,7 @@ from scene.camera import Camera
 from scene.material import Material
 from scene.mesh import Mesh
 from scene.misc import Scene
+from scene.movement_rig import Movement_Rig
 
 
 def init():
@@ -20,8 +21,11 @@ def init():
         near=0.1,
         far=1000)
 
-    camera.set_position([0, 4, 8])
-    camera.rotate_x(-.25)
+    global rig
+    rig = Movement_Rig(move_speed=5)
+    rig.add(camera)
+    rig.set_position([0, 1.5, 8])
+    scene.add(rig)
 
     model = obj_loader.load('models/teapot.obj')
 
@@ -42,4 +46,5 @@ def run():
     # update game state
     mesh.rotate_y(0.01)
 
+    rig.update()
     renderer.render(scene, camera)

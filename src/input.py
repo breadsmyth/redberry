@@ -28,3 +28,15 @@ def is_key_pressed(key):
     return key in config.KEYS_PRESSED
 def is_key_up(key):
     return key in config.KEYS_UP
+
+
+def capture_mouse():
+    pygame.mouse.set_visible(False)
+    pygame.event.set_grab(True)
+
+def release_mouse():
+    pygame.mouse.set_visible(True)
+    pygame.event.set_grab(False)
+
+def get_mouse_delta():
+    return pygame.mouse.get_rel()
