@@ -72,6 +72,9 @@ class Box_Geometry(Geometry):
         c3, c4 = [.5, 1, .5], [0, .5, 0]
         c5, c6 = [.5, .5, 1], [0, 0, .5]
 
+        # texture coordinates
+        T0, T1, T2, T3 = [0,0], [1,0], [0,1], [1,1]
+
         position_data = [
             p5,p1,p3,p5,p3,p7, p0,p4,p6,p0,p6,p2,
             p6,p7,p3,p6,p3,p2, p0,p1,p5,p0,p5,p4,
@@ -79,6 +82,9 @@ class Box_Geometry(Geometry):
 
         color_data = [c1]*6 + [c2]*6 + [c3]*6 + [c4]*6 + [c5]*6 + [c6]*6
 
+        uv_data = [T0,T1,T3, T0,T3,T2] * 6
+
         self.add_attribute('vec3', 'vertex_position', position_data)
         self.add_attribute('vec3', 'vertex_color', color_data)
+        self.add_attribute('vec2', 'vertex_uv', uv_data)
         self.count_vertices()

@@ -34,3 +34,8 @@ class Uniform:
             case 'mat4':
                 glUniformMatrix4fv(self.variable,
                                   1, GL_TRUE, self.data)
+            case 'sampler2D':
+                tex_obj, tex_unit = self.data
+                glActiveTexture(GL_TEXTURE0 + tex_unit)
+                glBindTexture(GL_TEXTURE_2D, tex_obj)
+                glUniform1i(self.variable, tex_unit)

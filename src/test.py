@@ -1,9 +1,11 @@
 import config
+from materials.mat_texture import Mat_Texture
+from opengl.texture import Texture
 from scene import obj_loader
 from scene.renderer import Renderer
 from scene.camera import Camera
 from scene.material import Material
-from scene.mesh import Mesh
+from scene.mesh import Mesh, Box_Geometry
 from scene.misc import Scene
 from scene.movement_rig import Movement_Rig
 
@@ -41,6 +43,18 @@ def init():
     mesh = Mesh(model, material)
     scene.add(mesh)
 
+    cube = Box_Geometry()
+    texture = Texture('textures/test.png')
+    cube_material = Mat_Texture(texture)
+
+    cube_mesh = Mesh(cube, cube_material)
+    cube_mesh.translate(-4, 0, 0)
+    scene.add(cube_mesh)
+
+    big_cube = Mesh(cube, cube_material)
+    big_cube.scale(10)
+    big_cube.translate(1, 0.5, -1)
+    scene.add(big_cube)
 
 def run():
     # update game state
