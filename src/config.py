@@ -22,6 +22,14 @@ def init():
     TOTAL_TIME = 0
     DELTA_TIME = 0
 
+    # number of seconds in a 24-hour period
+    global DAY_LENGTH
+    DAY_LENGTH = 10
+
+    # how long it takes for the sun to set/rise (included in DAY_LENGTH)
+    global SUNSET_LENGTH
+    SUNSET_LENGTH = 2
+
 
 def load_from_settings():
     with open('settings.json') as file:

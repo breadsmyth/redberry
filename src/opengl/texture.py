@@ -9,8 +9,8 @@ class Texture:
         self.tex = glGenTextures(1)
 
         self.properties = {
-            'mag_filter': GL_LINEAR,
-            'min_filter': GL_LINEAR_MIPMAP_LINEAR,
+            'mag_filter': GL_NEAREST,
+            'min_filter': GL_NEAREST_MIPMAP_NEAREST,
             'wrap': GL_REPEAT}
         
         self.set_properties(properties)

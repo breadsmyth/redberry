@@ -1,5 +1,8 @@
+from math import pi
+
 import config
 from materials.mat_texture import Mat_Texture
+from materials.mat_sky import Mat_Sky
 from opengl.texture import Texture
 from scene import obj_loader
 from scene.renderer import Renderer
@@ -15,7 +18,7 @@ def init():
     global scene
     global camera
 
-    renderer = Renderer()
+    renderer = Renderer(clear_color=(0, 0, 0))
     scene = Scene()
     camera = Camera(
         angle_of_view=config.FOV,
@@ -26,7 +29,7 @@ def init():
     global rig
     rig = Movement_Rig(move_speed=5)
     rig.add(camera)
-    rig.set_position([0, 1.5, 8])
+    rig.set_position([0, 1.7, 8])
     scene.add(rig)
 
     model = obj_loader.load('models/teapot.obj')
@@ -54,11 +57,28 @@ def init():
     big_cube = Mesh(cube, cube_material)
     big_cube.scale(10)
     big_cube.translate(1, 0.5, -1)
+    big_cube.rotate_y(15)
     scene.add(big_cube)
+
+    grass = Box_Geometry(width=100, height=1, depth=100)
+    grass_texture = Texture('textures/grass.png')
+    grass_material = Mat_Texture(grass_texture, {'uv_repeat': [100, 100]})
+    grass_mesh = Mesh(grass, grass_material)
+    grass_mesh.translate(0, -1, 0)
+    scene.add(grass_mesh)
+
+    global sky_material
+    sky = Box_Geometry(width=200, height=200, depth=200)
+    sky_material = Mat_Sky()
+    sky_mesh = Mesh(sky, sky_material)
+    sky_mesh.rotate_y(pi / 2)
+    scene.add(sky_mesh)
 
 def run():
     # update game state
     mesh.rotate_y(0.01)
 
     rig.update()
+    # update sky mesh (is there a better way to do this? TODO)
+    sky_material.uniforms['time'].data = config.TOTAL_TIME
     renderer.render(scene, camera)
